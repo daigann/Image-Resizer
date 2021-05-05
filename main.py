@@ -74,7 +74,7 @@ x_test_noisy = np.clip(x_test_noisy, 0., 1.)
 
 input_img = Input(shape=(28, 28, 1))  # adapt this if using `channels_first` image data format
 
-# I'm not experienced enough in encoder to understand fully how this works
+# I'm not experienced enough in encoder to get this perfect
 # I basically added, removed and adjusted values here till my cat image appeared as a blob
 x = Conv2D(64, (3, 3), activation='relu', padding='same')(input_img)
 x = MaxPooling2D((2, 2), padding='same')(x)
@@ -85,8 +85,7 @@ encoded = MaxPooling2D((2, 2), padding='same')(x)
 
 # at this point the representation is (4, 4, 8) i.e. 128-dimensional
 
-# I added a few more layers with random values to try and get above 56x56 as I'm still
-# inexperienced with encoders. Having said that I played around with this enough that I felt
+# I played around with this enough that I felt
 # a 70x70 output layer would suffice for this. I had higher dimensions but the output was
 # either impossible to tell what it was or the output was just a solid color. With these
 # dimensions my cat image looks like a yellow blob but it is the closest I've gotten to
@@ -102,8 +101,6 @@ decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same')(x)
 # the autoencoder comes together here
 autoencoder = Model(input_img, decoded)
 
-# leaving this in here as this allowed me to see the output player dimensions to determine
-# if I was above 56x56 or not
 autoencoder.summary()
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 autoencoder.fit(x_train_noisy, training_data2,
