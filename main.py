@@ -1,7 +1,3 @@
-# David Mehovic
-# CPSC 4430 - Introduction to Machine Learning
-# Assignment 3
-
 # The import needed to successfully create and run an autoencoder
 import numpy as np
 import glob
